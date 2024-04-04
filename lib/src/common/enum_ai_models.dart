@@ -1,155 +1,171 @@
-//TODO: Yet to correct all the models to the right name
-
-
 //These are the chat models available for the Together AI API
 
 enum ChatModel {
-  olmoInstruct7B,
-  stripedHyenaNous7B,
-  gemmaInstruct7B,
-  gemmaInstruct2B,
-  nousHermes2MetralDPO7B,
-  mistral7BInstruct_v02,
-  motral8x7BInstruct_v01,
-  mistral7bInstructT,
-  nousHermes2Motral8x7BSFT,
-  qwen15Chat72B,
-  gwen15Chat14B,
-  gwen15Chat7B,
-  gwen15Chat4B,
-  gwen15Chat13B,
-  gwen15Chat105B,
-  nousHermes2Yi34B,
-  codeLlamaInstruct70B,
-  nousHermes2Mistral8x7BDPO,
-  snorkelMistralPairRM_DPO7B,
-  deepseak_coderInstruct33B,
-  mistral7BInstruct,
-  oiAiYiChat64B,
-  nousHermesLlama213B,
-  nousHermesLLaMA27B,
   llama27B32KInstruct7B,
-  llama2Chat70B,
-  llama2Chat13B,
-  llama2Chat7B,
-  openChat35,
-  codeLlamaInstruct13B,
-  codeLlamaInstruct34B,
-  codeLlamaInstruct7B,
-  nousCaybara_v197B,
-  openHermes25Mistral7B,
-  upstageSOLAR_instruct_v111B,
-  opencircaMistral7B8K,
-  openHermes2Mistral7B,
-  wizardLM_v213B,
-  vicuna_v1513B,
-  chronosHermes13B,
-  platypus2Instruct70B,
-  mythoMax_l213B,
   redPajamaINCITEChat7B,
   redPajamaINCITEChat3B,
-  alpaca7B,
-  ;
+  stripedHyenaNous7B,
+  olmoInstruct7B,
+  gemmaInstruct2B,
+  gemmaInstruct7B,
+  nousCapybaraV1P97B,
+  nousHermes2MistralDPO7B,
+  nousHermes2Mistral8x7BDPO,
+  nousHermes2Mistral8x7BSFT,
+  nousHermes2Yi34B,
+  nousHermesLlama213B,
+  nousHermesLLaMA27B,
+  mistral7BInstruct,
+  mistral7BInstructV02,
+  mixtral8X7BInstructV01,
+  dolphin25Mixtral8X7B,
+  qwen15Chat05B,
+  qwen15Chat18B,
+  qwen15Chat14B,
+  qwen15Chat4B,
+  qwen15Chat72B,
+  qwen15Chat7B,
+  codeLlamaInstruct13B,
+  codeLlamaInstruct34B,
+  codeLlamaInstruct70B,
+  codeLlamaInstruct7B,
+  llama2Chat13B,
+  llama2Chat70B,
+  llama2Chat7B,
+  snorkelMistralPairRMDPO7B,
+  deepseakcoderInstruct33B,
+  openChat35,
+  openHermes2Mistral7B,
+  openHermes2p5Mistral7B,
+  upstageSOLARinstructV111B,
+  yi34B,
+  mistralOpenorca7B,
+  wizardLMv213B,
+  vicunaV1513B,
+  chronosHermes13B,
+  platypus2Instruct70B,
+  mythoMaxL213B,
+  alpaca7B;
 
   @override
   String toString() {
     switch (this) {
+      //Together
+      case ChatModel.llama27B32KInstruct7B:
+        return 'TOGETHERCOMPUTER/LLAMA-2-7B-32K-INSTRUCT';
+      case ChatModel.redPajamaINCITEChat7B:
+        return 'TOGETHERCOMPUTER/REDPAJAMA-INCITE-7B-CHAT';
+      case ChatModel.redPajamaINCITEChat3B:
+        return 'TOGETHERCOMPUTER/REDPAJAMA-INCITE-CHAT-3B-V1';
+      case ChatModel.stripedHyenaNous7B:
+        return 'TOGETHERCOMPUTER/STRIPEDHYENA-NOUS-7B';
+      //AllenAI
       case ChatModel.olmoInstruct7B:
         return 'ALLENAI/OLMO-7B-INSTRUCT';
-      case ChatModel.stripedHyenaNous7B:
-        return 'StrikedHyena-Nous (7B)';
-      case ChatModel.gemmaInstruct7B:
-        return 'Gamma Instruct (7B)';
+      //Google
       case ChatModel.gemmaInstruct2B:
-        return 'Gamma Instruct (2B)';
-      case ChatModel.nousHermes2MetralDPO7B:
-        return 'Nous Hermes 2 - Mistral DPO (7B)';
-      case ChatModel.mistral7bInstructT:
+        return 'GOOGLE/GEMMA-2B-IT';
+      case ChatModel.gemmaInstruct7B:
+        return 'GOOGLE/GEMMA-7B-IT';
+      //NousResearch
+      case ChatModel.nousCapybaraV1P97B:
+        return 'NOUSRESEARCH/NOUS-CAPYBARA-7B-V1P9';
+      case ChatModel.nousHermes2MistralDPO7B:
+        return 'NOUSRESEARCH/NOUS-HERMES-2-MISTRAL-7B-DPO';
+      case ChatModel.nousHermes2Mistral8x7BDPO:
+        return 'NOUSRESEARCH/NOUS-HERMES-2-MIXTRAL-8X7B-DPO';
+      case ChatModel.nousHermes2Mistral8x7BSFT:
+        return 'NOUSRESEARCH/NOUS-HERMES-2-MIXTRAL-8X7B-SFT';
+      case ChatModel.nousHermes2Yi34B:
+        return 'NOUSRESEARCH/NOUS-HERMES-2-YI-34B';
+      case ChatModel.nousHermesLlama213B:
+        return 'NOUSRESEARCH/NOUS-HERMES-LLAMA2-13B';
+      case ChatModel.nousHermesLLaMA27B:
+        return 'NOUSRESEARCH/NOUS-HERMES-LLAMA-2-7B';
+      //mistralai
+      case ChatModel.mistral7BInstruct:
         return 'MISTRALAI/MISTRAL-7B-INSTRUCT-V0.1';
-      case ChatModel.mistral7BInstruct_v02:
-        return 'Mistral-7b-Instruct-v0.2';
-      case ChatModel.motral8x7BInstruct_v01:
-        return 'Mistral-8x7B Instruct-v0.1';
-      case ChatModel.nousHermes2Motral8x7BSFT:
-        return 'Nous Hermes 2 - Mistral 8x7B-SFT';
+      case ChatModel.mistral7BInstructV02:
+        return 'MISTRALAI/MISTRAL-7B-INSTRUCT-V0.2';
+      case ChatModel.mixtral8X7BInstructV01:
+        return 'MISTRALAI/MIXTRAL-8X7B-INSTRUCT-V0.1';
+      //cognitivecomputations
+      case ChatModel.dolphin25Mixtral8X7B:
+        return 'COGNITIVECOMPUTATIONS/DOLPHIN-2.5-MIXTRAL-8X7B';
+      //Qwen
+      case ChatModel.qwen15Chat05B:
+        return 'QWEN/QWEN1.5-0.5B-CHAT';
+      case ChatModel.qwen15Chat18B:
+        return 'QWEN/QWEN1.5-1.8B-CHAT';
+      case ChatModel.qwen15Chat14B:
+        return 'QWEN/QWEN1.5-14B-CHAT';
+      case ChatModel.qwen15Chat4B:
+        return 'QWEN/QWEN1.5-4B-CHAT';
       case ChatModel.qwen15Chat72B:
         return 'QWEN/QWEN1.5-72B-CHAT';
-      case ChatModel.gwen15Chat14B:
-        return 'Gwen 1.5 Chat (14B)';
-      case ChatModel.gwen15Chat7B:
-        return 'Gwen 1.5 Chat (7B)';
-      case ChatModel.gwen15Chat4B:
-        return 'Gwen 1.5 Chat (4B)';
-      case ChatModel.gwen15Chat13B:
-        return 'Gwen 1.5 Chat (13B)';
-      case ChatModel.gwen15Chat105B:
-        return 'Gwen 1.5 Chat (105B)';
-      case ChatModel.nousHermes2Yi34B:
-        return 'Nous Hermes 2-Yi (34B)';
-      case ChatModel.codeLlamaInstruct70B:
-        return 'Code Llama Instruct (70B)';
-      case ChatModel.nousHermes2Mistral8x7BDPO:
-        return 'Nous Hermes 2 - Mistral 8x7B-DPO';
-      case ChatModel.snorkelMistralPairRM_DPO7B:
-        return 'Snorkel Mistral-Pair-RM-DPO (7B)';
-      case ChatModel.deepseak_coderInstruct33B:
-        return 'Deepseak-Coder Instruct (33B)';
-      case ChatModel.mistral7BInstruct:
-        return 'Mistral (7B) Instruct';
-      case ChatModel.oiAiYiChat64B:
-        return 'OI-ai Yi Chat (64B)';
-      case ChatModel.nousHermesLlama213B:
-        return 'Nous Hermes Llama-2 (13B)';
-      case ChatModel.nousHermesLLaMA27B:
-        return 'Nous Hermes LLaMA-2 (7B)';
-      case ChatModel.llama27B32KInstruct7B:
-        return 'LLaMA-2-7B-32K-Instruct (7B)';
-      case ChatModel.llama2Chat70B:
-        return 'LLaMA-2-Chat (70B)';
-      case ChatModel.llama2Chat13B:
-        return 'LLaMA-2-Chat (13B)';
-      case ChatModel.llama2Chat7B:
-        return 'LLaMA-2-Chat (7B)';
-      case ChatModel.openChat35:
-        return 'OpenChat 3.5';
+      case ChatModel.qwen15Chat7B:
+        return 'QWEN/QWEN1.5-7B-CHAT';
+      //Meta
       case ChatModel.codeLlamaInstruct13B:
-        return 'Code Llama Instruct (13B)';
+        return 'CODELLAMA/CODELLAMA-13B-INSTRUCT-HF';
       case ChatModel.codeLlamaInstruct34B:
-        return 'Code Llama Instruct (34B)';
+        return 'CODELLAMA/CODELLAMA-34B-INSTRUCT-HF';
+      case ChatModel.codeLlamaInstruct70B:
+        return 'CODELLAMA/CODELLAMA-70B-INSTRUCT-HF';
       case ChatModel.codeLlamaInstruct7B:
-        return 'Code Llama Instruct (7B)';
-      case ChatModel.nousCaybara_v197B:
-        return 'Nous Caybara v1.9 (7B)';
-      case ChatModel.openHermes25Mistral7B:
-        return 'OpenHermes-2.5-Mistral (7B)';
-      case ChatModel.upstageSOLAR_instruct_v111B:
-        return 'Upstage SOLAR Instruct v1 (11B)';
-      case ChatModel.opencircaMistral7B8K:
-        return 'OpenCirca Mistral (7B) 8K';
+        return 'CODELLAMA/CODELLAMA-7B-INSTRUCT-HF';
+      case ChatModel.llama2Chat13B:
+        return 'META-LLAMA/LLAMA-2-13B-CHAT-HF';
+      case ChatModel.llama2Chat70B:
+        return 'META-LLAMA/LLAMA-2-70B-CHAT-HF';
+      case ChatModel.llama2Chat7B:
+        return 'META-LLAMA/LLAMA-2-7B-CHAT-HF';
+      //Snorkel AI
+      case ChatModel.snorkelMistralPairRMDPO7B:
+        return 'SNORKELAI/SNORKEL-MISTRAL-PAIRRM-DPO';
+      //DeepSeek
+      case ChatModel.deepseakcoderInstruct33B:
+        return 'DEEPSEEK-AI/DEEPSEEK-CODER-33B-INSTRUCT';
+      //01.AI
+      case ChatModel.yi34B:
+        return 'ZERO-ONE-AI/YI-34B-CHAT';
+      //OpenChat
+      case ChatModel.openChat35:
+        return 'OPENCHAT/OPENCHAT-3.5-1210';
+      //teknium
       case ChatModel.openHermes2Mistral7B:
-        return 'OpenHermes-2-Mistral (7B)';
-      case ChatModel.wizardLM_v213B:
-        return 'WizardLM v1.2 (13B)';
-      case ChatModel.vicuna_v1513B:
-        return 'Vicuna v1.5 (13B)';
+        return 'TEKNIUM/OPENHERMES-2-MISTRAL-7B';
+      case ChatModel.openHermes2p5Mistral7B:
+        return 'TEKNIUM/OPENHERMES-2P5-MISTRAL-7B';
+      //upstage
+      case ChatModel.upstageSOLARinstructV111B:
+        return 'UPSTAGE/SOLAR-10.7B-INSTRUCT-V1.0';
+      //OpenOrca
+      case ChatModel.mistralOpenorca7B:
+        return 'OPEN-ORCA/MISTRAL-7B-OPENORCA';
+      //WizardLM
+      case ChatModel.wizardLMv213B:
+        return 'WIZARDLM/WIZARDLM-13B-V1.2';
+      //LM Sys
+      case ChatModel.vicunaV1513B:
+        return 'LMSYS/VICUNA-13B-V1.5';
+      //Austism
       case ChatModel.chronosHermes13B:
-        return 'Chronos Hermes (13B)';
+        return 'AUSTISM/CHRONOS-HERMES-13B';
+      //garage-bAInd
       case ChatModel.platypus2Instruct70B:
-        return 'Platypus2 Instruct (70B)';
-      case ChatModel.mythoMax_l213B:
-        return 'MythoMax-L2 (13B)';
-      case ChatModel.redPajamaINCITEChat7B:
-        return 'RedPajama-INCITE Chat (7B)';
-      case ChatModel.redPajamaINCITEChat3B:
-        return 'RedPajama-INCITE Chat (3B)';
+        return 'GARAGE-BAIND/PLATYPUS2-70B-INSTRUCT';
+      //Gryphe
+      case ChatModel.mythoMaxL213B:
+        return 'GRYPHE/MYTHOMAX-L2-13B';
+      //Stanford
       case ChatModel.alpaca7B:
-        return 'Alpaca (7B)';
+        return 'TOGETHERCOMPUTER/ALPACA-7B';
       default:
         return name;
     }
   }
 }
-
 
 /// These are the image models available for the Together AI API
 
@@ -158,25 +174,24 @@ enum ImageModel {
   stableDiffusion21,
   realisticVision3_0,
   stableDiffusion1_5,
-  openjourney_v4,
-  analogDiffusion,
-  ;
+  openjourneyV4,
+  analogDiffusion;
 
   @override
   String toString() {
     switch (this) {
       case ImageModel.stableDiffusionXL1_0:
-        return 'Stable Diffusion XL 1.0';
+        return 'stabilityai/stable-diffusion-xl-base-1.0';
       case ImageModel.stableDiffusion21:
         return 'stabilityai/stable-diffusion-2-1';
-      case ImageModel.realisticVision3_0:
-        return 'Realistic Vision 3.0';
-      case ImageModel.stableDiffusion1_5:
-        return 'Stable Diffusion 1.5';
-      case ImageModel.openjourney_v4:
-        return 'Openjourney v4';
-      case ImageModel.analogDiffusion:
-        return 'Analog Diffusion';
+      // case ImageModel.realisticVision3_0:
+      //   return 'sg161222/realistic_vision_v3.0_vae';
+      // case ImageModel.stableDiffusion1_5:
+      //   return 'runwayml/stable-diffusion-v1-5';
+      // case ImageModel.openjourneyV4:
+      //   return 'promptHero/openjourney-v4';
+      // case ImageModel.analogDiffusion:
+      //   return 'wavymulder/analog-diffusion';
       default:
         return name;
     }
@@ -195,11 +210,11 @@ enum LanguageModel {
   mistral8x7Bv01,
   microsoftPhi2,
   qwen1572B,
-  gwen1514B,
-  gwen157B,
-  gwen154B,
-  gwen1513B,
-  gwen1505B,
+  qwen1514B,
+  qwen157B,
+  qwen154B,
+  qwen1513B,
+  qwen1505B,
   stripedHyenaHessian7B,
   mistral7B,
   llamA232K7B,
@@ -219,61 +234,61 @@ enum LanguageModel {
   String toString() {
     switch (this) {
       case LanguageModel.olMo7B:
-        return 'OLMo (7B)';
+        return 'ALLENAI/OLMO-7B';
       case LanguageModel.evo1Base13K:
-        return 'Evo-1 Base (13K)';
+        return 'TOGETHERCOMPUTER/EVO-1-131K-BASE';
       case LanguageModel.evo1Base8K:
-        return 'Evo-1 Base (8K)';
+        return 'TOGETHERCOMPUTER/EVO-1-8K-BASE';
       case LanguageModel.gennna7B:
-        return 'Gennna (7B)';
+        return 'GOOGLE/GEMMA-7B';
       case LanguageModel.gennna2B:
-        return 'Gennna (2B)';
+        return 'GOOGLE/GEMMA-2B';
       case LanguageModel.olMoTwin2T7B:
-        return 'OLMo Twin-2T (7B)';
+        return 'ALLENAI/OLMO-7B-TWIN-2T';
       case LanguageModel.mistral8x7Bv01:
-        return 'Mistral-8x7B v0.1';
+        return 'MISTRALAI/MIXTRAL-8X7B-V0.1';
       case LanguageModel.microsoftPhi2:
-        return 'Microsoft Phi-2';
+        return 'MICROSOFT/PHI-2';
       case LanguageModel.qwen1572B:
         return 'QWEN/QWEN1.5-72B';
-      case LanguageModel.gwen1514B:
-        return 'Gwen 15 (14B)';
-      case LanguageModel.gwen157B:
-        return 'Gwen 15 (7B)';
-      case LanguageModel.gwen154B:
-        return 'Gwen 15 (4B)';
-      case LanguageModel.gwen1513B:
-        return 'Gwen 15 (13B)';
-      case LanguageModel.gwen1505B:
-        return 'Gwen 15 (0.5B)';
+      case LanguageModel.qwen1514B:
+        return 'QWEN/QWEN1.5-14B';
+      case LanguageModel.qwen157B:
+        return 'QWEN/QWEN1.5-7B';
+      case LanguageModel.qwen154B:
+        return 'QWEN/QWEN1.5-4B';
+      case LanguageModel.qwen1513B:
+        return 'QWEN/QWEN1.5-1.8B';
+      case LanguageModel.qwen1505B:
+        return 'QWEN/QWEN1.5-0.5B';
       case LanguageModel.stripedHyenaHessian7B:
-        return 'StripedHyena Hessian (7B)';
+        return 'TOGETHERCOMPUTER/STRIPEDHYENA-HESSIAN-7B';
       case LanguageModel.mistral7B:
-        return 'Mistral (7B)';
+        return 'MISTRALAI/MISTRAL-7B-V0.1';
       case LanguageModel.llamA232K7B:
-        return 'LLaMA-2-32K (7B)';
+        return 'TOGETHERCOMPUTER/LLAMA-2-7B-32K';
       case LanguageModel.llamA270B:
-        return 'LLaMA-2 (70B)';
+        return 'META-LLAMA/LLAMA-2-70B-HF';
       case LanguageModel.llamA213B:
-        return 'LLaMA-2 (13B)';
+        return 'META-LLAMA/LLAMA-2-13B-HF';
       case LanguageModel.llamA27B:
-        return 'LLaMA-2 (7B)';
+        return 'META-LLAMA/LLAMA-2-7B-HF';
       case LanguageModel.o1aiYiBase34B:
-        return 'O1-ai Yi Base (34B)';
+        return 'ZERO-ONE-AI/YI-34B';
       case LanguageModel.o1aiYiBase6B:
-        return 'O1-ai Yi Base (6B)';
+        return 'ZERO-ONE-AI/YI-6B';
       case LanguageModel.nexusRaven13B:
-        return 'NexusRaven (13B)';
+        return 'NEXUSFLOW/NEXUSRAVEN-V2-13B';
       case LanguageModel.redPajamaInciteInstruct7B:
-        return 'RedPajama-INCITE Instruct (7B)';
+        return 'TOGETHERCOMPUTER/REDPAJAMA-INCITE-7B-INSTRUCT';
       case LanguageModel.redPajamaIncite7B:
-        return 'RedPajama-INCITE (7B)';
+        return 'TOGETHERCOMPUTER/REDPAJAMA-INCITE-7B-BASE';
       case LanguageModel.redPajamaInciteInstruct3B:
-        return 'RedPajama-INCITE Instruct (3B)';
+        return 'TOGETHERCOMPUTER/REDPAJAMA-INCITE-INSTRUCT-3B-V1';
       case LanguageModel.redPajamaIncite3B:
-        return 'RedPajama-INCITE (3B)';
+        return 'TOGETHERCOMPUTER/REDPAJAMA-INCITE-BASE-3B-V1';
       case LanguageModel.gptJtModeration8B:
-        return 'GPT-JT-Moderation (8B)';
+        return 'TOGETHERCOMPUTER/GPT-JT-MODERATION-6B';
       default:
         return name;
     }

@@ -1,5 +1,4 @@
-import 'package:together_ai_sdk/src/common/enum_ai_models.dart';
-import 'package:together_ai_sdk/together_ai.dart';
+import 'package:together_ai_sdk/together_ai_sdk.dart';
 
 void main() async {
 
@@ -36,5 +35,4 @@ void main() async {
   print(imageResponse);
 
   
-
 }

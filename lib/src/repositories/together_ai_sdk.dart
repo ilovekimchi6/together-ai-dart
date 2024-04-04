@@ -17,10 +17,10 @@ import 'package:together_ai_sdk/src/models/text_completion.dart';
 
 class TogetherAISdk {
   final String apiKey;
-  final Dio _dio;
+  Dio dio;
 
   TogetherAISdk(this.apiKey)
-      : _dio = Dio(BaseOptions(
+      : dio = Dio(BaseOptions(
           baseUrl: 'https://api.together.xyz',
           headers: {
             'Accept': 'application/json',
@@ -41,7 +41,7 @@ class TogetherAISdk {
     int? repetitionPenalty,
   }) async {
     try {
-      final response = await _dio.post(
+      final response = await dio.post(
         '/v1/chat/completions',
         //Note that if you do not pass parameters, the default values will be used. For more information on the default values, visit https://docs.together.ai/reference/chat-completions
         data: {
@@ -84,7 +84,7 @@ class TogetherAISdk {
       int? repetitionPenalty}) async {
     try {
       //For more information on the parameters, visit https://docs.together.ai/reference/completions
-      final response = await _dio.post('/v1/completions', data: {
+      final response = await dio.post('/v1/completions', data: {
         'model': model.toString(),
         'prompt': '<s>[INST] $prompt [/INST]',
         'max_tokens': maxTokens ?? 512,
@@ -116,7 +116,7 @@ class TogetherAISdk {
   Future<dynamic> embeddings(String input, String embeddModel) async {
     try {
       //For more information on the parameters, visit https://docs.together.ai/reference/embeddings
-      final response = await _dio.post('/v1/embeddings', data: {
+      final response = await dio.post('/v1/embeddings', data: {
         'model': embeddModel,
         'input': input,
       });
@@ -146,13 +146,14 @@ class TogetherAISdk {
   }) async {
     //TODO 4: Add link for more information on the parameters
     try {
-      final response = await _dio.post('/v1/images/generations', data: {
+      final response = await dio.post('/v1/images/generations', data: {
         'model': imageModel.toString(),
         'prompt': prompt,
         'n': n,
         'steps': steps,
       });
       final data = response.data;
+      print(data);
       return ImageGenerationResponse.fromJson(data);
     } on DioException catch (e) {
       developer.log(e.toString());
@@ -182,7 +183,7 @@ class TogetherAISdk {
     int? repetitionPenalty,
   }) async {
     try {
-      final response = await _dio.post(
+      final response = await dio.post(
         '/inference',
         data: {
           'model': model,
