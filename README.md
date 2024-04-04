@@ -27,7 +27,7 @@ Then, run `dart pub get` to fetch the package.
 First, import the package in your Dart code:
 
 ```dart
-import 'package:together_ai/together_ai.dart';
+import 'package:together_ai_sdk/together_ai_sdk.dart';
 ```
 
 ### Initializing the Together AI SDK
