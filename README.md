@@ -113,7 +113,4 @@ Please notify me via email or a pull request or an opening an issue if there are
 This package is released under the [MIT License](https://opensource.org/licenses/MIT).
 ```
 
-Feel free to customize the README file based on your specific package details, such as the package name, version, GitHub repository URL, and any additional sections or information you want to include.
-
-Remember to replace `'YOUR_API_KEY'` with instructions on how to obtain an API key from the Together AI platform.
 
