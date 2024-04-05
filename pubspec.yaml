@@ -1,7 +1,8 @@
 name: together_ai_sdk
-description: Together AI SDK for Dart and Flutter.
+description: A comprehensive SDK for interacting with the Together AI API. Supports chat, text, and image generation with various models.
 version: 1.0.0
 repository: https://github.com/ilovekimchi6/together-ai-dart
+
 
 environment:
   sdk: ^3.2.5

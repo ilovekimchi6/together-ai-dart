@@ -70,7 +70,7 @@ To generate text, use the `textCompletion` method:
 To generate an image, use the `imageGeneration` method:
 
 ```dart
-  final imageResponse = await togetherAISdk.imageGeneration('Cypberpunk Moon', imageModel: ImageModel.stableDiffusion21);
+  final imageResponse = await togetherAISdk.imageGeneration('Cyberpunk Moon', imageModel: ImageModel.stableDiffusion21);
 
   print(imageResponse);
 ```

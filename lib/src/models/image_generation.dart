@@ -18,7 +18,8 @@ class ImageGenerationResponse {
       id: json['id'],
       model: json['model'],
       object: json['object'],
-      data: List<ImageData>.from(json['data'].map((x) => ImageData.fromJson(x))),
+      data:
+          List<ImageData>.from(json['data'].map((x) => ImageData.fromJson(x))),
     );
   }
 
