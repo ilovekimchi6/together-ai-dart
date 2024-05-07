@@ -1,15 +1,11 @@
 import 'package:together_ai_sdk/together_ai_sdk.dart';
 
 void main() async {
-
   //Initialize the TogetherAISdk class with your API key
 
-  TogetherAISdk togetherAISdk = TogetherAISdk(
-      'YOUR_API_KEY_HERE');
+  TogetherAISdk togetherAISdk = TogetherAISdk('YOUR_API_KEY_HERE');
 
   //Find your API key here https://api.together.xyz/settings/api-keys
-
-
 
   //We will use the chatCompletion method to chat with the model in a chat based format.
 
@@ -20,7 +16,6 @@ void main() async {
 
   print(chatResponse);
 
-
   //We will use the textCompletion method to generate text completion.
 
   final textResponse = await togetherAISdk.textCompletion(
@@ -30,9 +25,8 @@ void main() async {
 
   //We will use the imageGeneration method to generate an image.
 
-  final imageResponse = await togetherAISdk.imageGeneration('Cypberpunk Moon', imageModel: ImageModel.stableDiffusion21);
+  final imageResponse = await togetherAISdk.imageGeneration('Cypberpunk Moon',
+      imageModel: ImageModel.stableDiffusion21);
 
   print(imageResponse);
-
-  
 }

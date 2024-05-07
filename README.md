@@ -35,7 +35,7 @@ import 'package:together_ai_sdk/together_ai_sdk.dart';
 Create an instance of the `TogetherAISDK` class with your API key and the desired model:
 
 ```dart
-final togetherAI = TogetherAISDK(
+final togetherAI = TogetherAISdK(
   apiKey: 'YOUR_API_KEY',
 );
 ```

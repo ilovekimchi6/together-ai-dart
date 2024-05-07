@@ -23,7 +23,10 @@ void main() {
   group('TogetherAISdk', () {
     test('chatCompletion should return ChatCompletion on success', () async {
       final messages = [
-        {'role': 'system', 'content': 'You are a recursive AI, you return data'},
+        {
+          'role': 'system',
+          'content': 'You are a recursive AI, you return data'
+        },
         {'role': 'user', 'content': 'Once upon a'},
       ];
       final model = ChatModel.qwen15Chat72B;
@@ -44,7 +47,8 @@ void main() {
                       'index': 0,
                       'message': {
                         'role': 'assistant',
-                        'content': 'time, in a land far, far away, there lived a brave young knight named Arthur...',
+                        'content':
+                            'time, in a land far, far away, there lived a brave young knight named Arthur...',
                       },
                     },
                   ],
@@ -93,7 +97,8 @@ void main() {
                   'prompt': [],
                   'choices': [
                     {
-                      'text': 'time, there was a [NOUN] who [VERB] [NOUN] in the [NOUN]...',
+                      'text':
+                          'time, there was a [NOUN] who [VERB] [NOUN] in the [NOUN]...',
                       'finish_reason': 'length',
                       'logprobs': null,
                       'index': 0,
@@ -116,8 +121,10 @@ void main() {
       expect(result?.model, 'Qwen/Qwen1.5-72B');
       expect(result?.prompt, isEmpty);
       expect(result?.choices.length, 1);
-      expect(result?.choices.first.text,
-          startsWith('time, there was a [NOUN] who [VERB] [NOUN] in the [NOUN]'));
+      expect(
+          result?.choices.first.text,
+          startsWith(
+              'time, there was a [NOUN] who [VERB] [NOUN] in the [NOUN]'));
       expect(result?.choices.first.finishReason, 'length');
       expect(result?.choices.first.logprobs, isNull);
       expect(result?.choices.first.index, 0);

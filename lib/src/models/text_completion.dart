@@ -1,6 +1,5 @@
 // TextCompletion model class
 
-
 class TextCompletion {
   final String id;
   final String object;
@@ -27,7 +26,8 @@ class TextCompletion {
       created: json['created'],
       model: json['model'],
       prompt: json['prompt'],
-      choices: List<TextChoice>.from(json['choices'].map((x) => TextChoice.fromJson(x))),
+      choices: List<TextChoice>.from(
+          json['choices'].map((x) => TextChoice.fromJson(x))),
       usage: TextUsage.fromJson(json['usage']),
     );
   }

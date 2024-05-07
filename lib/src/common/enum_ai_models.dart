@@ -32,6 +32,9 @@ enum ChatModel {
   llama2Chat13B,
   llama2Chat70B,
   llama2Chat7B,
+  llama3Chat8B,
+  llama3Chat70B,
+  solar107BInstruct,
   snorkelMistralPairRMDPO7B,
   deepseakcoderInstruct33B,
   openChat35,
@@ -120,6 +123,13 @@ enum ChatModel {
         return 'META-LLAMA/LLAMA-2-70B-CHAT-HF';
       case ChatModel.llama2Chat7B:
         return 'META-LLAMA/LLAMA-2-7B-CHAT-HF';
+      case ChatModel.llama3Chat8B:
+        return 'META-LLAMA/LLAMA-3-8B-CHAT-HF';
+      case ChatModel.llama3Chat70B:
+        return 'META-LLAMA/LLAMA-3-70B-CHAT-HF';
+      //Upstage
+      case ChatModel.solar107BInstruct:
+        return 'UPSTAGE/SOLAR-10.7B-INSTRUCT-V1.0';
       //Snorkel AI
       case ChatModel.snorkelMistralPairRMDPO7B:
         return 'SNORKELAI/SNORKEL-MISTRAL-PAIRRM-DPO';
