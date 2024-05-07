@@ -102,6 +102,10 @@ try {
 
 The Together AI Dart package supports various chat and image generation models. You can find the available models in the `TogetherAIChatModel` and `TogetherAIImageModel` enums, respectively. This can be found in the enum_ai_models.dart file which is in the common folder.
 
+## Conflicts
+
+If you have any conflicts with your existing codebase, make sure to import the sdk using the `as` keyword.
+
 ## Contributing
 
 Contributions to the Together AI Dart package are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the [GitHub repository](https://github.com/ilovekimchi6/together-ai-dart).
