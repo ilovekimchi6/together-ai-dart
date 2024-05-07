@@ -1,6 +1,6 @@
 name: together_ai_sdk
-description: A comprehensive SDK for interacting with the Together AI API. Supports chat, text, and image generation with various models.
-version: 1.0.1
+description: A comprehensive SDK for interacting with the Together AI API. Supports chat, text, and image generation with various models including Llama 3.
+version: 1.0.2
 repository: https://github.com/ilovekimchi6/together-ai-dart
 
 
