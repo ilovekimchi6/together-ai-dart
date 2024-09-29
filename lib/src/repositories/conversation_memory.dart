@@ -6,7 +6,6 @@ abstract class ConversationMemory {
   void clear();
 }
 
-
 // This class is used to store the conversation messages in memory, there is no limit to the number of messages that can be stored.
 class ConversationBufferMemory implements ConversationMemory {
   final List<Message> _messages = [];
@@ -32,8 +31,7 @@ class ConversationBufferMemory implements ConversationMemory {
   }
 }
 
-
-// This class is used to store the conversation messages in memory, with a limit to the number of messages that can be stored. 
+// This class is used to store the conversation messages in memory, with a limit to the number of messages that can be stored.
 // If you decide to store more messages than the window size, the oldest messages will be removed.
 // The window size is set when initializing the class, this size is the maximum number of messages that can be stored.
 

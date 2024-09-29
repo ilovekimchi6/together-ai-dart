@@ -16,3 +16,7 @@
 - Major change to error handling. No longer returns null.
 - Removed deprecated models. See `https://docs.together.ai/docs/deprecations` for now info.
 - Please make sure to review the model names from the website.
+
+## 2.0.1
+
+- Formatted better.

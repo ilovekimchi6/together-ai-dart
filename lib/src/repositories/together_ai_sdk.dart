@@ -78,88 +78,94 @@ class TogetherAISdk {
 
   /// VisionChatCompletion method is used to chat with the vision model in a chat based format.
 
-Future<ChatCompletion> visionChatCompletion(
-  List<Map<String, Object>> messages,
-  ChatVisionModel model, {
-  List<String>? stop,
-  int? maxTokens,
-  int? temperature,
-  int? topP,
-  int? topK,
-  int? repetitionPenalty,
-}) async {
-  try {
-    final response = await dio.post(
-      '/v1/chat/completions', // Or the appropriate endpoint for vision models
-      data: {
+  Future<ChatCompletion> visionChatCompletion(
+    List<Map<String, Object>> messages,
+    ChatVisionModel model, {
+    List<String>? stop,
+    int? maxTokens,
+    int? temperature,
+    int? topP,
+    int? topK,
+    int? repetitionPenalty,
+  }) async {
+    try {
+      final response = await dio.post(
+        '/v1/chat/completions', // Or the appropriate endpoint for vision models
+        data: {
+          'model': model.toString(),
+          'stop': stop ??
+              [
+                '</s>',
+                '[/INST]'
+              ], // Adjust stop sequences if needed for vision models
+          'max_tokens': maxTokens ?? 512,
+          'temperature': temperature ?? 0.7,
+          'top_p': topP ?? 0.7,
+          'top_k': topK ?? 50,
+          'repetition_penalty': repetitionPenalty ?? 1,
+          'messages': messages,
+        },
+      );
+
+      final data = response.data;
+      return ChatCompletion.fromJson(data);
+    } on DioException catch (e) {
+      developer.log(e.toString());
+      final errorResponse = e.response?.data;
+      final errorMessage =
+          errorResponse?['error']?['message'] ?? 'Unknown error';
+      final errorCode = errorResponse?['error']?['code'] ?? 'unknown_error';
+      final error = getTogetherAIError(errorCode, errorMessage);
+      developer.log('Error: ${error.message}', name: 'together_ai_sdk.name');
+      throw error;
+    } catch (e) {
+      final error = UnknownServerError('An unknown error occurred: $e');
+      developer.log('Error: ${error.message}', name: 'together_ai_sdk.name');
+      throw error;
+    }
+  }
+
+  /// Text Completion method is used to complete text based on the prompt provided.
+  ///
+  Future<TextCompletion> textCompletion(
+    String prompt,
+    LanguageModel model, {
+    int? maxTokens,
+    List<String>? stop,
+    int? temperature,
+    int? topP,
+    int? topK,
+    int? repetitionPenalty,
+  }) async {
+    try {
+      //For more information on the parameters, visit https://docs.together.ai/reference/completions
+      final response = await dio.post('/v1/completions', data: {
         'model': model.toString(),
-        'stop': stop ?? ['</s>', '[/INST]'], // Adjust stop sequences if needed for vision models
+        'prompt': '<s>[INST] $prompt [/INST]',
         'max_tokens': maxTokens ?? 512,
+        'stop': stop ?? ['</s>', '[/INST]'],
         'temperature': temperature ?? 0.7,
         'top_p': topP ?? 0.7,
         'top_k': topK ?? 50,
         'repetition_penalty': repetitionPenalty ?? 1,
-        'messages': messages,
-      },
-    );
-
-    final data = response.data;
-    return ChatCompletion.fromJson(data);
-  } on DioException catch (e) {
-    developer.log(e.toString());
-    final errorResponse = e.response?.data;
-    final errorMessage = errorResponse?['error']?['message'] ?? 'Unknown error';
-    final errorCode = errorResponse?['error']?['code'] ?? 'unknown_error';
-    final error = getTogetherAIError(errorCode, errorMessage);
-    developer.log('Error: ${error.message}', name: 'together_ai_sdk.name');
-    throw error;
-  } catch (e) {
-    final error = UnknownServerError('An unknown error occurred: $e');
-    developer.log('Error: ${error.message}', name: 'together_ai_sdk.name');
-    throw error;
+      });
+      final data = response.data;
+      return TextCompletion.fromJson(data);
+    } on DioException catch (e) {
+      developer.log(e.toString());
+      final errorResponse = e.response?.data;
+      final errorMessage =
+          errorResponse?['error']?['message'] ?? 'Unknown error';
+      final errorCode = errorResponse?['error']?['code'] ?? 'unknown_error';
+      final error = getTogetherAIError(errorCode, errorMessage);
+      developer.log('Error: ${error.message}', name: 'together_ai_sdk.name');
+      throw error;
+    } catch (e) {
+      final error = UnknownServerError('An unknown error occurred: $e');
+      developer.log('Error: ${error.message}', name: 'together_ai_sdk.name');
+      throw error;
+    }
   }
-}
-
-  /// Text Completion method is used to complete text based on the prompt provided.
-  /// 
-  Future<TextCompletion> textCompletion(
-  String prompt,
-  LanguageModel model, {
-  int? maxTokens,
-  List<String>? stop,
-  int? temperature,
-  int? topP,
-  int? topK,
-  int? repetitionPenalty,
-}) async {
-  try {
-    //For more information on the parameters, visit https://docs.together.ai/reference/completions
-    final response = await dio.post('/v1/completions', data: {
-      'model': model.toString(),
-      'prompt': '<s>[INST] $prompt [/INST]',
-      'max_tokens': maxTokens ?? 512,
-      'stop': stop ?? ['</s>', '[/INST]'],
-      'temperature': temperature ?? 0.7,
-      'top_p': topP ?? 0.7,
-      'top_k': topK ?? 50,
-      'repetition_penalty': repetitionPenalty ?? 1,
-    });
-    final data = response.data;
-    return TextCompletion.fromJson(data);
-  } on DioException catch (e) {
-    developer.log(e.toString());
-    final errorResponse = e.response?.data;
-    final errorMessage = errorResponse?['error']?['message'] ?? 'Unknown error';
-    final errorCode = errorResponse?['error']?['code'] ?? 'unknown_error';
-    final error = getTogetherAIError(errorCode, errorMessage);
-    developer.log('Error: ${error.message}', name: 'together_ai_sdk.name');
-    throw error;
-  } catch (e) {
-    final error = UnknownServerError('An unknown error occurred: $e');
-    developer.log('Error: ${error.message}', name: 'together_ai_sdk.name');
-    throw error;
-  }
-}
 
   /// This method converts your input into embeddings.
 
@@ -307,87 +313,83 @@ Future<String> imageToBase64(String imagePath) async {
   return "data:image/jpeg;base64,$base64Image";
 }
 
-
 //Deprecated code
 
-  // Future<ChatCompletion?> chatCompletion(
-  //   List<Map<String, String>> messages,
-  //   ChatModel model, {
-  //   List<String>? stop,
-  //   int? maxTokens,
-  //   int? temperature,
-  //   int? topP,
-  //   int? topK,
-  //   int? repetitionPenalty,
-  // }) async {
-  //   try {
-  //     final response = await dio.post(
-  //       '/v1/chat/completions',
-  //       //Note that if you do not pass parameters, the default values will be used. For more information on the default values, visit https://docs.together.ai/reference/chat-completions
-  //       data: {
-  //         'model': model.toString(),
-  //         'stop': stop ?? ['</s>', '[/INST]'],
-  //         'max_tokens': maxTokens ?? 512,
-  //         'temperature': temperature ?? 0.7,
-  //         'top_p': topP ?? 0.7,
-  //         'top_k': topK ?? 50,
-  //         'repetition_penalty': repetitionPenalty ?? 1,
-  //         'messages': messages,
-  //       },
-  //     );
+// Future<ChatCompletion?> chatCompletion(
+//   List<Map<String, String>> messages,
+//   ChatModel model, {
+//   List<String>? stop,
+//   int? maxTokens,
+//   int? temperature,
+//   int? topP,
+//   int? topK,
+//   int? repetitionPenalty,
+// }) async {
+//   try {
+//     final response = await dio.post(
+//       '/v1/chat/completions',
+//       //Note that if you do not pass parameters, the default values will be used. For more information on the default values, visit https://docs.together.ai/reference/chat-completions
+//       data: {
+//         'model': model.toString(),
+//         'stop': stop ?? ['</s>', '[/INST]'],
+//         'max_tokens': maxTokens ?? 512,
+//         'temperature': temperature ?? 0.7,
+//         'top_p': topP ?? 0.7,
+//         'top_k': topK ?? 50,
+//         'repetition_penalty': repetitionPenalty ?? 1,
+//         'messages': messages,
+//       },
+//     );
 
-  //     final data = response.data;
-  //     return ChatCompletion.fromJson(data);
-  //   } on DioException catch (e) {
-  //     developer.log(e.toString());
-  //     final errorResponse = e.response?.data;
-  //     final errorMessage = errorResponse['error']['message'];
-  //     final errorCode = errorResponse['error']['code'];
-  //     final error = getTogetherAIError(errorCode, errorMessage).message;
-  //     developer.log('Error: $error', name: 'together_ai_sdk.name');
-  //     return null;
-  //   } catch (e) {
-  //     final error = UnknownServerError('An unknown error occurred.');
-  //     developer.log('Error: $error', name: 'together_ai_sdk.name');
-  //     return null;
-  //   }
-  // }
+//     final data = response.data;
+//     return ChatCompletion.fromJson(data);
+//   } on DioException catch (e) {
+//     developer.log(e.toString());
+//     final errorResponse = e.response?.data;
+//     final errorMessage = errorResponse['error']['message'];
+//     final errorCode = errorResponse['error']['code'];
+//     final error = getTogetherAIError(errorCode, errorMessage).message;
+//     developer.log('Error: $error', name: 'together_ai_sdk.name');
+//     return null;
+//   } catch (e) {
+//     final error = UnknownServerError('An unknown error occurred.');
+//     developer.log('Error: $error', name: 'together_ai_sdk.name');
+//     return null;
+//   }
+// }
 
-
-
-
-    // Future<TextCompletion?> textCompletion(String prompt, LanguageModel model,
-  //     {int? maxTokens,
-  //     List<String>? stop,
-  //     int? temperature,
-  //     int? topP,
-  //     int? topK,
-  //     int? repetitionPenalty}) async {
-  //   try {
-  //     //For more information on the parameters, visit https://docs.together.ai/reference/completions
-  //     final response = await dio.post('/v1/completions', data: {
-  //       'model': model.toString(),
-  //       'prompt': '<s>[INST] $prompt [/INST]',
-  //       'max_tokens': maxTokens ?? 512,
-  //       'stop': stop ?? ['</s>', '[/INST]'],
-  //       'temperature': temperature ?? 0.7,
-  //       'top_p': topP ?? 0.7,
-  //       'top_k': topK ?? 50,
-  //       'repetition_penalty': repetitionPenalty ?? 1,
-  //     });
-  //     final data = response.data;
-  //     return TextCompletion.fromJson(data);
-  //   } on DioException catch (e) {
-  //     developer.log(e.toString());
-  //     final errorResponse = e.response?.data;
-  //     final errorMessage = errorResponse['error']['message'];
-  //     final errorCode = errorResponse['error']['code'];
-  //     final error = getTogetherAIError(errorCode, errorMessage).message;
-  //     developer.log('Error: $error', name: 'together_ai_sdk.name');
-  //     return null;
-  //   } catch (e) {
-  //     final error = UnknownServerError('An unknown error occurred.');
-  //     developer.log('Error: $error', name: 'together_ai_sdk.name');
-  //     return null;
-  //   }
-  // }
+// Future<TextCompletion?> textCompletion(String prompt, LanguageModel model,
+//     {int? maxTokens,
+//     List<String>? stop,
+//     int? temperature,
+//     int? topP,
+//     int? topK,
+//     int? repetitionPenalty}) async {
+//   try {
+//     //For more information on the parameters, visit https://docs.together.ai/reference/completions
+//     final response = await dio.post('/v1/completions', data: {
+//       'model': model.toString(),
+//       'prompt': '<s>[INST] $prompt [/INST]',
+//       'max_tokens': maxTokens ?? 512,
+//       'stop': stop ?? ['</s>', '[/INST]'],
+//       'temperature': temperature ?? 0.7,
+//       'top_p': topP ?? 0.7,
+//       'top_k': topK ?? 50,
+//       'repetition_penalty': repetitionPenalty ?? 1,
+//     });
+//     final data = response.data;
+//     return TextCompletion.fromJson(data);
+//   } on DioException catch (e) {
+//     developer.log(e.toString());
+//     final errorResponse = e.response?.data;
+//     final errorMessage = errorResponse['error']['message'];
+//     final errorCode = errorResponse['error']['code'];
+//     final error = getTogetherAIError(errorCode, errorMessage).message;
+//     developer.log('Error: $error', name: 'together_ai_sdk.name');
+//     return null;
+//   } catch (e) {
+//     final error = UnknownServerError('An unknown error occurred.');
+//     developer.log('Error: $error', name: 'together_ai_sdk.name');
+//     return null;
+//   }
+// }
