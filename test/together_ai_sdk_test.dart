@@ -84,7 +84,7 @@ void main() {
 
     test('textCompletion should return TextCompletion on success', () async {
       final prompt = 'Once upon a';
-      final model = LanguageModel.qwen1572B;
+      final model = LanguageModel.llama270bhf;
 
       when(() => mockDio.post(any(), data: any(named: 'data')))
           .thenAnswer((_) async => Response(

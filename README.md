@@ -17,7 +17,7 @@ To use the Together AI Dart package in your project, add the following dependenc
 
 ```yaml
 dependencies:
-  together_ai_sdk: ^1.0.2
+  together_ai_sdk: ^2.0.0
 ```
 
 Then, run `dart pub get` to fetch the package.
@@ -35,9 +35,7 @@ import 'package:together_ai_sdk/together_ai_sdk.dart';
 Create an instance of the `TogetherAISDK` class with your API key and the desired model:
 
 ```dart
-final togetherAI = TogetherAISdK(
-  apiKey: 'YOUR_API_KEY',
-);
+final togetherAI = TogetherAISdK('YOUR_API_KEY');
 ```
 
 ### Generating Chat
@@ -47,11 +45,61 @@ To generate text using a chat model, use the `chatCompletion` method:
 ```dart
 
   final chatResponse = await togetherAISdk.chatCompletion([
-    {'role': 'system', 'content': 'You are a recursive AI, you return data'},
+    {'role': 'system', 'content': 'You are a helpful'},
     {'role': 'user', 'content': 'Once upon a'},
   ], ChatModel.qwen15Chat72B);
 
   print(chatResponse);
+```
+
+### Generating Chat using stream
+
+To generate a stream, use the `streamResponse` method:
+
+```dart
+
+  final chatResponse = await togetherAISdk.streamResponse([
+    {'role': 'system', 'content': 'You are a helpful AI assistant'},
+    {'role': 'user', 'content': 'Tell me a cyberpunk story'},
+  ], ChatModel.qwen15Chat72B);
+
+  print(chatResponse);
+```
+
+### Generating Chat With Vision Models
+
+To generate text using a vision model, use the `visionChatCompletion` method:
+
+```dart
+
+  String imagePath =
+      '/Users/kimchi/Documents/Packages/together_ai_sdk/example/your_image_name.jpeg';
+
+  //This function converts the image to base64
+  String base64ImageUrl = await imageToBase64(imagePath);
+
+//The message object is a list of maps with role and content keys. Which is not the same as the Message class in the SDK.
+  final messages = [
+    {'role': 'system', 'content': 'You are a helpful AI'},
+    {
+      'role': 'user',
+      'content': [
+        {'type': 'text', 'text': 'What\'s in this image?'},
+        {
+          'type': 'image_url',
+          'image_url': {'url': base64ImageUrl}
+        }
+      ]
+    },
+  ];
+
+  //Please use ChatVision model.
+  //LlamaVFree, the free model is included.
+
+  final chatVisionResponse = await togetherAISdk.visionChatCompletion(
+      messages, ChatVisionModel.llama3290BV);
+
+  print(chatVisionResponse);
 ```
 
 ### Generating Text 
@@ -65,19 +113,34 @@ To generate text, use the `textCompletion` method:
   print(textResponse);
 ```
 
+### Simple conversation memory class
+
+To use simple memory, use the `ConversationBufferWindowMemory` class or `ConversationBufferMemory`:
+
+```dart
+  ConversationMemory memory = ConversationBufferWindowMemory(4);
+  memory.addMessage(chatResponse.choices[0].message);
+
+  print(memory.getMessages());
+
+  //Printing that gives you 
+  //[{role: assistant, content: Diverse, multicultural, modern, cosmopolitan, city-state, financial hub, green spaces, food paradise, vibrant nightlife,狮城。}]
+```
+
 ### Generating Images
 
 To generate an image, use the `imageGeneration` method:
 
 ```dart
-  final imageResponse = await togetherAISdk.imageGeneration('Cyberpunk Moon', imageModel: ImageModel.stableDiffusion21);
+  final imageResponse = await togetherAISdk.imageGeneration('Group of cats', imageModel: ImageModel.stableDiffusionXL1_0);
 
   print(imageResponse);
 ```
 
-Please currently only two models are supported via this SDK with more to come soon.
+Please note currently there is only one model that is supported.
 1) stabilityai/stable-diffusion-xl-base-1.0
-2) stabilityai/stable-diffusion-2-1
+
+
 
 ### Error Handling
 
@@ -100,7 +163,8 @@ try {
 
 ## Models
 
-The Together AI Dart package supports various chat and image generation models. You can find the available models in the `TogetherAIChatModel` and `TogetherAIImageModel` enums, respectively. This can be found in the enum_ai_models.dart file which is in the common folder.
+The Together AI Dart package supports various chat and image generation models. You can find the available models in the `ChatModel`, `ImageModel` and `ChatVisionModel` enums, respectively in the `enum_ai_models.dart` file, which is in the common folder.
+If there are any missing models please let me know.
 
 ## Conflicts
 

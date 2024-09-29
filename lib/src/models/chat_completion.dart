@@ -81,9 +81,27 @@ class Message {
   }
   @override
   String toString() {
-    return 'Message(role: $role, content: $content)';
+    return """{'role': '$role', 'content': '$content'}""";
   }
 }
+
+// "messages": [
+//     {
+//       "role": "user",
+//       "content": [
+//         {
+//           "type": "text",
+//           "text": "What's in this image?"
+//         },
+//         {
+//           "type": "image_url",
+//           "image_url": {
+//             "url": f"data:image/jpeg;base64,{base64_image}"
+//           }
+//         }
+//       ]
+//     }
+//   ]
 
 class Usage {
   final int promptTokens;
