@@ -30,6 +30,17 @@ First, import the package in your Dart code:
 import 'package:together_ai_sdk/together_ai_sdk.dart';
 ```
 
+### Security Disclaimer
+
+⚠️ **IMPORTANT: API Key Security** ⚠️
+
+When using this SDK, please be aware of the following security considerations:
+
+1. **Never expose your API key in client-side code.** The `TogetherAISdK` initialization with an API key should not be done directly in mobile or web applications that are distributed to end-users.
+
+2. **Use environment variables** to store your API key during development and testing. Never commit these to version control.
+
+
 ### Initializing the Together AI SDK
 
 Create an instance of the `TogetherAISDK` class with your API key and the desired model:
