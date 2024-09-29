@@ -20,3 +20,7 @@
 ## 2.0.1
 
 - Formatted better.
+
+## 2.0.2
+
+- Added Disclaimer when using API KEY.

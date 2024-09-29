@@ -17,7 +17,7 @@ To use the Together AI Dart package in your project, add the following dependenc
 
 ```yaml
 dependencies:
-  together_ai_sdk: ^2.0.1
+  together_ai_sdk: ^2.0.2
 ```
 
 Then, run `dart pub get` to fetch the package.
